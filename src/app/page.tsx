@@ -1,6 +1,7 @@
+"use client"
 import axios from "axios";
 import Navbar from "./components/Navbar";
-import {  useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 interface WeatherDetail {
   dt: number;
@@ -62,11 +63,13 @@ export default function Home() {
     "repoData",
     async () => {
       const { data } = await axios.get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=pune&APPID=17a2e14c9b55a607353b7ea7b12c20ed`
+        `https://api.openweathermap.org/data/2.5/forecast?q=pune&APPID=${process.env.NEXT_PUBLIC_WEATHER_KEY}`
       );
       return data;
     }
   );
+
+  console.log("data", data)
 
   if (isLoading) return "Loading...";
 
