@@ -1,5 +1,6 @@
 import React from "react";
 import { IoSearch } from "react-icons/io5";
+import { cn } from "../utils/cn";
 
 type Props = {
   className?: string;
@@ -11,7 +12,10 @@ type Props = {
 export default function SearchBox(props: Props) {
   return (
     <form
-      className="flex relative items-center justify-center h-10"
+      className={cn(
+        "flex relative items-center justify-center h-10",
+        props.className
+      )}
       onSubmit={props.onSubmit}
     >
       <input
