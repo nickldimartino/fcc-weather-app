@@ -3,6 +3,8 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import { useQuery } from "react-query";
 import { format, parseISO } from "date-fns";
+import Container from "./components/Container";
+import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
 
 interface WeatherDetail {
   dt: number;
@@ -92,6 +94,11 @@ export default function Home() {
               <p>{format(parseISO(firstData?.dt_txt ?? ""), "EEEE")}</p>
               <p className="text-lg">({format(parseISO(firstData?.dt_txt ?? ""), "dd.MM.yyyy")})</p>
             </h2>
+            <Container className="gap-110 px-6 items-center">
+              <div className="flex flex-col px-4">
+                {convertKelvinToCelsius(firstData?.main.temp ?? 0)}°
+              </div>
+            </Container>
           </div>
         </section>
         <section></section>
