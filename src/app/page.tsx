@@ -2,11 +2,14 @@
 import axios from "axios";
 import Navbar from "./components/Navbar";
 import { useQuery } from "react-query";
-import { format, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import Container from "./components/Container";
 import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
 import WeatherIcon from "./components/WeatherIcon";
 import { getDayOrNightIcon } from "./utils/getDayOrNightIcon";
+import WeatherDetails from "./components/WeatherDetails";
+import { metersToKilometers } from "./utils/metersToKilometers";
+import { convertWindSpeed } from "./utils/convertWindSpeed";
 
 interface WeatherDetail {
   dt: number;
@@ -150,7 +153,22 @@ export default function Home() {
                 )}
               />
             </Container>
-            <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto"></Container>
+            <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto">
+              <WeatherDetails
+                visibility={metersToKilometers(firstData?.visibility ?? 10000)}
+                humidity={`${firstData?.main.humidity}%`}
+                windSpeed={convertWindSpeed(firstData?.wind.speed ?? 1.64)}
+                airPressure={`${firstData?.main.pressure} hPa`}
+                sunrise={format(
+                  fromUnixTime(data?.city.sunrise ?? 1702949452),
+                  "H:mm"
+                )}
+                sunset={format(
+                  fromUnixTime(data?.city.sunset ?? 1702517657),
+                  "H:mm"
+                )}
+              />
+            </Container>
           </div>
         </section>
         <section className="flex w-full flex-col gpa-4">
