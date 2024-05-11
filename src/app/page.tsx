@@ -129,15 +129,33 @@ export default function Home() {
                     </p>
 
                     {/* <WeatherIcon iconName={d.weather[0].icon}/> */}
-                    <WeatherIcon iconName={getDayOrNightIcon(d.weather[0].icon, d.dt_txt)}/>
+                    <WeatherIcon
+                      iconName={getDayOrNightIcon(d.weather[0].icon, d.dt_txt)}
+                    />
                     <p>{convertKelvinToCelsius(d?.main.temp ?? 0)}°</p>
                   </div>
                 ))}
               </div>
             </Container>
           </div>
+          <div className="flex gap-4">
+            <Container className="w-fit justify-center flex-col px-4 items-center">
+              <p className="capitalize text-center">
+                {firstData?.weather[0].description}
+              </p>
+              <WeatherIcon
+                iconName={getDayOrNightIcon(
+                  firstData?.weather[0].icon ?? "",
+                  firstData?.dt_txt ?? ""
+                )}
+              />
+            </Container>
+            <Container className="bg-yellow-300/80 px-6 gap-4 justify-between overflow-x-auto"></Container>
+          </div>
         </section>
-        <section></section>
+        <section className="flex w-full flex-col gpa-4">
+          <p className="text-2xl">Forecast (7 days)</p>
+        </section>
       </main>
     </div>
   );
